@@ -1,1 +1,14 @@
-# csc525
+# Foundations of AI
+
+Foundations of AI.
+
+# Usage
+
+## KNN Iris Project
+
+Simple KNN with initial labeled data traing to recognize type of flower based
+on SepalLength, SepalWidth, PetalLength, PetalWidth.
+
+Setup: `knn-iris-setup`
+
+Execute: `knn-iris`
