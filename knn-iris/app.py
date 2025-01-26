@@ -35,7 +35,7 @@ def get_neighbors(train_df, test_sample, k):
     """
     Return the k nearest neighbors to 'test_sample' 
     from the training DataFrame train_df.
-    
+
     test_sample is typically 5 elements [SepalLength, SepalWidth, PetalLength, PetalWidth, Label/None].
     We only need the first 4 for distance calculation.
     """
@@ -46,13 +46,13 @@ def get_neighbors(train_df, test_sample, k):
 
     # Extract just the features from the test sample (ignoring its label/None)
     test_features = test_sample[:-1]
-    
+
     # Compute distance to every point in the training set
     for i in range(len(train_features)):
         dist = euclidean_distance(test_features, train_features[i])
         label = train_labels[i]
         distances.append((dist, label))
-        
+
     # Sort by distance and pick the first k
     distances.sort(key=lambda x: x[0])
     neighbors = distances[:k]
@@ -62,7 +62,7 @@ def predict_classification(train_df, test_sample, k):
     """
     Predict the class (label) for a single test_sample
     by majority vote of the k nearest neighbors.
-    
+
     test_sample should have 5 elements, with the last element as None or an unused label:
     [sepal_length, sepal_width, petal_length, petal_width, None]
     """
@@ -80,14 +80,14 @@ def evaluate_knn(train_df, test_df, k):
     """
     correct = 0
     total = len(test_df)
-    
+
     for i in range(total):
         test_sample = test_df.iloc[i].values  # features + label
         actual_label = test_sample[-1]
         predicted_label = predict_classification(train_df, test_sample, k)
         if predicted_label == actual_label:
             correct += 1
-    
+
     accuracy = correct / total
     return accuracy
 
@@ -98,9 +98,9 @@ def summarize_classes(train_df):
     """
     label_col = train_df.columns[-1]
     feature_cols = train_df.columns[:-1]
-    
+
     group_stats = train_df.groupby(label_col)[feature_cols].mean()
-    
+
     print("Classes in the training data and their average feature values:")
     for class_label, row in group_stats.iterrows():
         print(f"  Class: {class_label}")
