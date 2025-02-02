@@ -10,6 +10,9 @@ PP_APP=app.py
 KNN_IRIS=$(CURRENT_DIR)/knn-iris
 KNN_IRIS_APP=app.py
 
+LINEAR_REGRESSION_HOUSING=$(CURRENT_DIR)/linear-regression
+LINEAR_REGRESSION_HOUSING_APP=app.py
+
 
 # PYTHON CONFIG ###############################################################
 
@@ -63,3 +66,18 @@ knn-iris: ## executes portfolio project Annotation Draw
 		$(PYTHON_CONFIG) $(KNN_IRIS)/$(KNN_IRIS_APP)
 	@echo "pp: completed portfolio project annotation drawing"
 
+.PHONY: linear-regression-housing-setup
+linear-regression-housing-setup: ## setup dependencies and precursors for linear regression housing
+	@echo "pp: setting up portfolio project virtual env"
+	@cd $(LINEAR_REGRESSION_HOUSING) && $(PYTHON_CONFIG) -m venv venv && \
+		. $(VNV_ACTIVATE) && \
+		$(PYTHON_PIP_CONFIG) install --upgrade pip && \
+		$(PYTHON_PIP_CONFIG) install -r requirements.txt
+
+.PHONY: linear-regression-housing
+linear-regression-housing: ## executes linear regression housing
+	@echo "pp: starting portfolio project annotation drawing"
+	@cd $(LINEAR_REGRESSION_HOUSING) && \
+		. $(VNV_ACTIVATE) && \
+		$(PYTHON_CONFIG) $(LINEAR_REGRESSION_HOUSING)/$(LINEAR_REGRESSION_HOUSING_APP)
+	@echo "pp: completed portfolio project annotation drawing"
