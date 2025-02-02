@@ -13,6 +13,16 @@ from sklearn.metrics import mean_squared_error, r2_score
 # otherwise set to none to test other models
 override_model_name = "Baseline Linear"
 
+
+# Cross-validate each model on the training set
+def cross_val_mean_mse(model, X_train, y_train, cv=5):
+    """Returns the average MSE (positive value) across CV folds."""
+    scores = cross_val_score(model, X_train, y_train,
+                             scoring="neg_mean_squared_error", cv=cv)
+    mean_mse = -np.mean(scores)  # convert from negative MSE
+    return mean_mse
+
+
 ###############################################################################
 # Load the California Housing dataset
 # The Boston dataset has been removed in later versions.
@@ -53,16 +63,6 @@ models = {
     "Ridge + Polynomial": model_ridge_poly,
     "Random Forest": model_rf
 }
-
-###############################################################################
-# Cross-validate each model on the training set
-###############################################################################
-def cross_val_mean_mse(model, X_train, y_train, cv=5):
-    """Returns the average MSE (positive value) across CV folds."""
-    scores = cross_val_score(model, X_train, y_train,
-                             scoring="neg_mean_squared_error", cv=cv)
-    mean_mse = -np.mean(scores)  # convert from negative MSE
-    return mean_mse
 
 cv_results = {}
 for name, model in models.items():
