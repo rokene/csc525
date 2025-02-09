@@ -13,6 +13,9 @@ KNN_IRIS_APP=app.py
 LINEAR_REGRESSION_HOUSING=$(CURRENT_DIR)/linear-regression
 LINEAR_REGRESSION_HOUSING_APP=app.py
 
+TF_CNN_HR_DIGITS=$(CURRENT_DIR)/tensorflow-hr-digits
+TF_CNN_HR_DIGITS_JUPYTER=app.ipynb
+
 
 # PYTHON CONFIG ###############################################################
 
@@ -81,3 +84,16 @@ linear-regression-housing: ## executes linear regression housing
 		. $(VNV_ACTIVATE) && \
 		$(PYTHON_CONFIG) $(LINEAR_REGRESSION_HOUSING)/$(LINEAR_REGRESSION_HOUSING_APP)
 	@echo "pp: completed portfolio project annotation drawing"
+
+.PHONY: tensorflow-cnn-handwritten-digits-setup
+tensorflow-cnn-handwritten-digits-setup: ## sets up the tensflow v2 cnn for handwritten digits
+	@echo "pp: setting up tensorflow v2 handwritten cnn project"
+	@cd $(TF_CNN_HR_DIGITS) && \
+		$(PYTHON_CONFIG) -m pipenv install
+
+.PHONY: tensorflow-cnn-handwritten-digits
+tensorflow-cnn-handwritten-digits: ## executes tensflow v2 cnn for handwritten digits
+	@echo "pp: starting tensflow v2 cnn for handwritten digits"
+	@cd $(TF_CNN_HR_DIGITS) && \
+		$(PYTHON_CONFIG) -m pipenv run jupyter ./$(TF_CNN_HR_DIGITS_JUPYTER)
+	@echo "pp: completed tensflow v2 cnn for handwritten digits"
