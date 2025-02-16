@@ -164,23 +164,23 @@ def main():
         "---------------------------------------------------------\n"
     )
     processed_files_info = []
-
+    sample_size = 20
     if not input_files:
         # Fallback: Use Hugging Face dataset
         print(
             "No .txt files found in ./input_data. Using IMDB from Hugging Face as a demo dataset."
         )
 
-        # Load a small sample from IMDB (e.g., first 100 lines from the train split)
+        # Load a small sample from IMDB (e.g., first sample_size lines from the train split)
         dataset = load_dataset("imdb", split="train")
-        lines = dataset["text"][:20]
+        lines = dataset["text"][:sample_size]
 
         # Process them as if it were a single "huggingface_imdb.txt"
         base_name = "huggingface_imdb.txt"
         unaug_file, aug_file = process_and_augment(lines, base_name, output_dir)
 
         info = (
-            f"Used fallback Hugging Face dataset: IMDB (train, first 100 samples)\n"
+            f"Used fallback Hugging Face dataset: IMDB (first {sample_size} samples)\n"
             f"  -> Unaugmented output: {unaug_file}\n"
             f"  -> Augmented output: {aug_file}\n"
         )
