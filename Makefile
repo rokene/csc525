@@ -16,6 +16,9 @@ LINEAR_REGRESSION_HOUSING_APP=app.py
 TF_CNN_HR_DIGITS=$(CURRENT_DIR)/tensorflow-hr-digits
 TF_CNN_HR_DIGITS_JUPYTER=app.ipynb
 
+TEXT_AUG=$(CURRENT_DIR)/text-data-augment
+TEXT_AUG_APP=$(TEXT_AUG)/app.py
+
 
 # PYTHON CONFIG ###############################################################
 
@@ -92,8 +95,22 @@ tensorflow-cnn-handwritten-digits-setup: ## sets up the tensflow v2 cnn for hand
 		$(PYTHON_CONFIG) -m pipenv install
 
 .PHONY: tensorflow-cnn-handwritten-digits
-tensorflow-cnn-handwritten-digits: ## executes tensflow v2 cnn for handwritten digits
+tensorflow-cnn-handwritten-digits: ## executes tensorflow v2 cnn for handwritten digits
 	@echo "pp: starting tensflow v2 cnn for handwritten digits"
 	@cd $(TF_CNN_HR_DIGITS) && \
 		$(PYTHON_CONFIG) -m pipenv run jupyter ./$(TF_CNN_HR_DIGITS_JUPYTER)
 	@echo "pp: completed tensflow v2 cnn for handwritten digits"
+
+.PHONY: text-augmentation-setup
+text-augmentation-setup: ## sets up text data augmentation project
+	@echo "pp: setting uptext data augmentation project"
+	@cd $(TEXT_AUG) && \
+		$(PYTHON_CONFIG) -m pipenv install
+	@$(PYTHON_CONFIG) -m pipenv run 
+
+.PHONY: text-augmentation
+text-augmentation: ## executes text data augmentation project
+	@echo "pp: starting text data augmentation project"
+	@cd $(TEXT_AUG) && \
+		$(PYTHON_CONFIG) -m pipenv run $(TEXT_AUG_APP)
+	@echo "pp: completed text data augmentation project"
